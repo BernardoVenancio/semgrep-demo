@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Buscar livros{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <p class="eyebrow">Pesquisa</p>
+    <h1>Buscar livros</h1>
+</section>
+
+<form class="search-form" method="GET">
+    <input
+        type="search"
+        name="q"
+        value="{{ term }}"
+        placeholder="Título ou autor"
+        aria-label="Título ou autor"
+    >
+    <button class="button" type="submit">Buscar</button>
+</form>
+
+{% if term %}
+<h2 class="results-title">Resultados para “{{ term }}”</h2>
+
+{% if books %}
+<div class="book-grid">
+    {% for book in books %}
+    <article class="book-card">
+        <div class="book-card__top">
+            <h2>{{ book["title"] }}</h2>
+            {% if book["rating"] is not none %}
+            <span class="rating">{{ book["rating"] }}/10</span>
+            {% endif %}
+        </div>
+        <p class="author">{{ book["author"] }}</p>
+        {% if book["review"] %}
+        <p>{{ book["review"] }}</p>
+        {% endif %}
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<p>Nenhum resultado encontrado.</p>
+{% endif %}
+{% endif %}
+{% endblock %}

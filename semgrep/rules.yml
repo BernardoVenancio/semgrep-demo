@@ -1,0 +1,39 @@
+rules:
+  # 1 — arquitetura
+  - id: no-direct-database-access
+    languages:
+      - python
+    message: >
+      Acesso direto ao banco fora de db.py.
+      Utilize funções da camada de acesso a dados.
+    severity: WARNING
+
+    pattern: $DB.execute(...)
+
+    paths:
+      exclude:
+        - db.py
+
+
+  # 2 — manutenibilidade
+  - id: no-hardcoded-flask-redirect
+    languages:
+      - python
+    message: >
+      Evite URLs hardcoded em redirect().
+      Utilize url_for().
+    severity: WARNING
+
+    pattern: redirect("...")
+
+
+  # 3 — convenção SQL
+  - id: no-select-star
+    languages:
+      - python
+    message: >
+      Evite SELECT *.
+      Declare explicitamente as colunas utilizadas.
+    severity: INFO
+
+    pattern-regex: 'SELECT\s+\*\s+FROM'

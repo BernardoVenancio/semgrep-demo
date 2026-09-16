@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Meus livros{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Biblioteca pessoal</p>
+        <h1>Livros lidos</h1>
+        <p>Cadastre, avalie e consulte suas leituras.</p>
+    </div>
+    <a class="button" href="{{ url_for('add_book') }}">Adicionar livro</a>
+</section>
+
+{% if books %}
+<div class="book-grid">
+    {% for book in books %}
+    <article class="book-card">
+        <div class="book-card__top">
+            <h2>{{ book["title"] }}</h2>
+            {% if book["rating"] is not none %}
+            <span class="rating">{{ book["rating"] }}/10</span>
+            {% endif %}
+        </div>
+        <p class="author">{{ book["author"] }}</p>
+        {% if book["review"] %}
+        <p>{{ book["review"] }}</p>
+        {% endif %}
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<p>Nenhum livro cadastrado ainda.</p>
+{% endif %}
+{% endblock %}
